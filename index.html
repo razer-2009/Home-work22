@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+ <meta charset="UTF-8">
+ <title>РИСОВАЛКА</title>
+    <link rel="stylesheet" href="style.css" />
+   
+</head>
+<body>
+ <canvas id="c1" width="800" height="600"></canvas>
+    <input type="color" id="color"/>
+   
+    <script>
+        var canvas = document.getElementById('c1'); // получим canvas
+var ctx = canvas.getContext('2d');
+
+/*
+// Рисуем мышкой, как на холсте.
+canvas.onmousemove = function(event) {
+    var x = event.offsetX; // Показывает отступ курсора мыши по оси X от края целевого DOM узла.
+    var y = event.offsetY;
+    // ctx.fillRect(x, y, 10, 10); // там, где стоит мышка отрисовывается прямоугольник 10x10px
+    // ctx.fillRect(x-5, y-5, 10, 10); //более адекватная отрисовка    
+}
+*/
+   
+/*
+ // Рисовать по нажатию клавиши мыши. Здесь будет отрисаван один прямоугольник при каждом нажатии.
+canvas.onmousemove = function(event) {
+    canvas.onmousedown = function(event) {
+        var x = event.offsetX;
+        var y = event.offsetY;
+        ctx.fillRect(x-5, y-5, 10, 10);
+    }
+}
+*/
+
+/*
+ // Рисовать по нажатию клавиши мыши. Сначала нажимаем, а потом рисуем. Рисование не прекращается.
+canvas.onmousedown = function(event) {
+    canvas.onmousemove = function(event) {
+        var x = event.offsetX;
+        var y = event.offsetY;
+        ctx.fillRect(x-5, y-5, 10, 10);
+    }
+}
+*/
+
+/*
+// Рисовать по нажатию клавиши мыши. Сначала нажимаем, а потом рисуем. После отпускаем мышь и рисование прекращается.
+canvas.onmousedown = function(event) {
+    canvas.onmousemove = function(event) {
+        var x = event.offsetX;
+        var y = event.offsetY;
+        ctx.fillRect(x-5, y-5, 10, 10);
+    }
+    canvas.onmouseup = function(event) {
+        // обнулим события на движение
+        canvas.onmousemove  = null;
+    }
+}
+*/
+
+// Дадим пользователю возможность выбирать цвет линии.
+// Вешаем на палитру событие.
+var myColor = 'red';
+document.getElementById('color').oninput = function() {
+    myColor = this.value;
+}
+
+canvas.onmousedown = function(event) {
+    canvas.onmousemove = function(event) {
+        var x = event.offsetX;
+        var y = event.offsetY;
+        ctx.fillRect(x-5, y-5, 10, 10);
+        ctx.fillStyle = myColor; // В html отрисуем выпадающую палитру.
+        ctx.fill();
+    }
+    canvas.onmouseup = function(event) {
+        // обнулим события на движение
+        canvas.onmousemove  = null;
+    }
+}
+    </script>
+</body>
+</html>
